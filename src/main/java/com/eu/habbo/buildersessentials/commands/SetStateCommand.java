@@ -4,7 +4,14 @@ import com.eu.habbo.Emulator;
 import com.eu.habbo.buildersessentials.BuildersEssentials;
 import com.eu.habbo.habbohotel.commands.Command;
 import com.eu.habbo.habbohotel.gameclients.GameClient;
+import com.eu.habbo.habbohotel.items.interactions.InteractionDice;
+import com.eu.habbo.habbohotel.items.interactions.pets.InteractionMonsterPlantSeed;
+import com.eu.habbo.habbohotel.rooms.Room;
+import com.eu.habbo.habbohotel.users.HabboItem;
+import com.eu.habbo.plugin.EventHandler;
 import com.eu.habbo.plugin.EventListener;
+import com.eu.habbo.plugin.events.furniture.FurnitureMovedEvent;
+import com.eu.habbo.plugin.events.furniture.FurniturePlacedEvent;
 
 public class SetStateCommand extends Command implements EventListener
 {
@@ -30,6 +37,7 @@ public class SetStateCommand extends Command implements EventListener
             {
 
             }
+
             int rotation = Integer.parseInt(extra_data);
             if(rotation > 40 || rotation < 0) {
                 gameClient.getHabbo().whisper(Emulator.getTexts().getValue("be.cmd_setstate.invalid_state"));

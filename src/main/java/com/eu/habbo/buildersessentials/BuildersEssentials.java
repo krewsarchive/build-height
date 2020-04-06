@@ -2,10 +2,13 @@ package com.eu.habbo.buildersessentials;
 
 import com.eu.habbo.Emulator;
 import com.eu.habbo.habbohotel.users.Habbo;
+import com.eu.habbo.habbohotel.users.HabboItem;
 import com.eu.habbo.plugin.EventHandler;
 import com.eu.habbo.plugin.EventListener;
 import com.eu.habbo.plugin.HabboPlugin;
 import com.eu.habbo.plugin.events.emulator.EmulatorLoadedEvent;
+import com.eu.habbo.plugin.events.furniture.FurnitureMovedEvent;
+import com.eu.habbo.plugin.events.furniture.FurniturePlacedEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +16,7 @@ import java.sql.SQLException;
 
 import static com.eu.habbo.Emulator.ANSI_BLUE;
 import static com.eu.habbo.Emulator.ANSI_WHITE;
+import static com.eu.habbo.buildersessentials.commands.SetStateCommand.SET_STATE_KEY;
 import static com.eu.habbo.buildersessentials.eventloader.loadAll.loadAll;
 
 /* Builders Essentials
@@ -60,6 +64,21 @@ public class BuildersEssentials extends HabboPlugin implements EventListener {
         INSTANCE.checkDatabase();
         loadAll();
         System.out.println("[" + ANSI_BLUE + "OFFICIAL PLUGIN" + ANSI_WHITE + "] " + "Builders Essentials (1.0.0) has official loaded!");
+    }
+
+
+    @EventHandler
+    public static void onDicePlacementEvent(FurniturePlacedEvent event) throws Exception {
+        if(event.furniture.getBaseItem().getInteractionType().getName().equals("dice")) {
+            event.habbo.getHabboStats().cache.remove(SET_STATE_KEY);
+        }
+    }
+
+    @EventHandler
+    public static void onDiceMoveEvent(FurnitureMovedEvent event) throws Exception {
+        if(event.furniture.getBaseItem().getInteractionType().getName().equals("dice")) {
+            event.habbo.getHabboStats().cache.remove(SET_STATE_KEY);
+        }
     }
 
     public void checkDatabase() {
