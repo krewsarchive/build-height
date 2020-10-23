@@ -41,7 +41,7 @@ public class SetBuildHeight implements EventListener {
     {
         if (event.newPosition != null)
         {
-            if (event.habbo.getHabboStats().cache.containsKey(BUILD_HEIGHT_KEY))
+            if (event.habbo != null && event.habbo.getHabboStats().cache.containsKey(BUILD_HEIGHT_KEY))
             {
                 Emulator.getThreading().run(new Runnable() {
                     public void run() {
